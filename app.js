@@ -1,7 +1,7 @@
 // app.js
 const http = require('http');
 
-const hostname = '0.0.0.0'; // Listen on all available network interfaces
+const hostname = '127.0.0.1'; // Listen on all available network interfaces
 const port = 4000;
 
 const server = http.createServer((req, res) => {

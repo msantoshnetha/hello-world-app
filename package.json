@@ -4,9 +4,11 @@
     "description": "A simple Hello World application",
     "main": "app.js",
     "scripts": {
-      "start": "node app.js"
+        "start": "node app.js"
     },
     "author": "msantoshnetha",
-    "license": "MIT"
-  }
-  
+    "license": "MIT",
+    "devDependencies": {
+        "ajv": "^8.12.0"
+    }
+}

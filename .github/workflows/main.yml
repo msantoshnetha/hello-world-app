@@ -27,9 +27,13 @@ jobs:
       - name: Build Docker image
         run: docker build -t my-app .
 
-      - name: Log in to GitHub Container Registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
+      - name: Run Docker container locally
+        run: docker run -d -p 4000:3000 my-app
+        
 
-      - name: Push Docker image to GitHub Container Registry
-        run: docker tag my-app ghcr.io/${{ env.GITHUB_OWNER }}/my-app:latest && docker push ghcr.io/${{ env.GITHUB_OWNER }}/my-app:latest
+#      - name: Log in to GitHub Container Registry
+#        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
+
+#      - name: Push Docker image to GitHub Container Registry
+#        run: docker tag my-app ghcr.io/${{ env.GITHUB_OWNER }}/my-app:latest && docker push ghcr.io/${{ env.GITHUB_OWNER }}/my-app:latest
       
