@@ -1,11 +1,20 @@
-FROM node:14
+# Use the official Python image as a parent image
+FROM python:3.9-slim
 
+# set the working directory to /app
 WORKDIR /app
 
-COPY . .
+# Copy the current directory contents into the container /app folder
+COPY . /
 
-RUN npm install
+# Install required packages specified in requirements.txt file
+RUN pip install -r requirements.txt
 
-EXPOSE 4000
+# Made port 80 available to the world outside this container
+EXPOSE 80
 
-CMD ["npm", "start"]
+# Define environment variable
+ENV NAME World
+
+# Run application app.py when the container launches
+CMD ["python", "app.py"]

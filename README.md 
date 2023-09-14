@@ -1,0 +1,50 @@
+# Hello, World! Python Application with Docker and CI/CD
+
+This is a simple "Hello, World!" Python application containerized with Docker and set up with a CI/CD pipeline using GitHub Actions.
+
+## Prerequisites
+
+Before you begin, ensure you have the following tools installed on your local machine:
+
+- [Docker](https://www.docker.com/get-started)
+- [Git](https://git-scm.com/downloads)
+
+## Getting Started
+
+Follow these steps to set up and run the application locally:
+
+1. Clone this repository to your local machine:
+
+   ```bash
+   git clone https://github.com/your-username/my-hello-world-app.git
+   cd my-hello-world-app
+   
+Build the Docker image:
+
+bash docker build -t hello-world-app .
+
+Run the Docker container:
+
+docker run -p 80:80 hello-world-app
+
+Open your web browser and navigate to http://localhost. You should see the "Hello, World!" message displayed as a web page.
+
+CI/CD Pipeline
+This project is configured with a CI/CD pipeline using GitHub Actions. The pipeline is triggered automatically when changes are pushed to the main branch. Here are the steps of the pipeline:
+
+Build Docker Image: The application code is built into a Docker image.
+
+Push Docker Image to Docker Hub: The Docker image is tagged and pushed to Docker Hub. Ensure you've set up the following secrets in your GitHub repository:
+
+DOCKERHUB_USERNAME: Your Docker Hub username.
+DOCKERHUB_TOKEN: A Docker Hub personal access token.
+
+Deploy to Docker: The Docker container is run with the latest image on your server.
+
+Continuous Integration and Continuous Deployment
+Any changes pushed to the main branch will trigger the CI/CD pipeline.
+
+To customize the pipeline or add more features, edit the .github/workflows/main.yml file.
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details

@@ -5,35 +5,32 @@ on:
     branches:
       - main
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     env:
-      GITHUB_OWNER: msantoshnetha
+      GITHUB_IMAGE_REPO: ${{ github.repository }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
-        run: docker build -t my-app .
+        run: |
+          docker buildx create --use
+          docker buildx build -t my-app:latest .
 
-      - name: Run Docker container locally
-        run: docker run -d -p 4000:3000 my-app
-        
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: Log in to GitHub Container Registry
-#        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
-
-#      - name: Push Docker image to GitHub Container Registry
-#        run: docker tag my-app ghcr.io/${{ env.GITHUB_OWNER }}/my-app:latest && docker push ghcr.io/${{ env.GITHUB_OWNER }}/my-app:latest
-      
+      - name: Push Docker image to GitHub Container Registry
+        run: docker push ghcr.io/$GITHUB_IMAGE_REPO/my-app:latest
